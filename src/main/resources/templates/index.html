@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>Shopping Cart</h1>
+        <br>
+        <form method="POST" data-th-object="${item}">
+            <table>
+                <tr>
+                    <td>Item:</td>
+                    <td>
+                        <input type="text" name="name" data-th-field="*{name}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Quantity:</td>
+                    <td>
+                        <input type="number" name="quantity" min="1" max="30" value="1" data-th-field="{quantity}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit" formaction="/cart/checkout">Checkout</button>
+                        <button type="submit" formaction="/cart">Add to Cart</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div data-th-if="${#lists.isEmpty(cart)}">
+			<h2>Your Cart is Empty</h2>
+		</div>
+
+		<div data-th-unless="${#lists.isEmpty(cart)}">
+			<table border="1">
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-th-each="i: ${cart}">
+						<td> <span data-th-text="${i.name}"></span> </td>
+						<td> <span data-th-text="${i.quantity}"></span> </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+    </body>
+</html>
